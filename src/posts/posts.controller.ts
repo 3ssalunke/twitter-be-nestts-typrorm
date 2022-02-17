@@ -1,33 +1,33 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 
-@Controller('posts')
+@Controller("posts")
 export class PostsController {
-  @Get('/')
+  @Get("/")
   getAllPosts() {
-    return 'get all posts';
+    return "get all posts";
   }
 
-  @Get('/:postid')
+  @Get("/:postid")
   getPostDetails(@Param() param) {
     return `get post ${param.postid}`;
   }
 
-  @Post('/')
+  @Post("/")
   createNewPost() {
-    return 'created new post';
+    return "created new post";
   }
 
-  @Delete('/:postid')
+  @Delete("/:postid")
   deletePost(@Param() param) {
     return `deleting a post ${param.postid}`;
   }
 
-  @Put('/:postid')
+  @Put("/:postid")
   likePost(@Param() param) {
     return `liked a post ${param.postid}`;
   }
 
-  @Delete('/:postid')
+  @Delete("/:postid")
   unlikePost(@Param() param) {
     return `unliked a post ${param.postid}`;
   }

@@ -1,13 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param } from "@nestjs/common";
 
-@Controller('hashtags')
+@Controller("hashtags")
 export class HashtagsController {
-  @Get('/')
+  @Get("/")
   getHashTags(): string {
-    return 'all hashtags';
+    return "all hashtags";
   }
 
-  @Get('/:tag/posts')
+  @Get("/:tag/posts")
   getPostsForHashtag(@Param() param): string {
     return `all posts for hashtag ${param.tag}`;
   }

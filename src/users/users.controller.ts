@@ -7,46 +7,46 @@ import {
   Patch,
   Post,
   Put,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
-@Controller('users')
+@Controller("users")
 export class UsersController {
-  @Get('/@:username')
+  @Get("/@:username")
   getUserByUsername(@Param() param): string {
     return `details of username ${param.username}`;
   }
 
-  @Get('/:userid')
+  @Get("/:userid")
   getUserByUserId(@Param() param): string {
     return `details of username ${param.userid}`;
   }
 
-  @Post('/')
+  @Post("/")
   createNewUser(@Body() body): string {
-    return 'new user';
+    return "new user";
   }
 
-  @Patch('/:userid')
+  @Patch("/:userid")
   updateUserDetails(@Param() userid): string {
     return `updating user = ${userid}`;
   }
 
-  @Put('/:userid/follow')
+  @Put("/:userid/follow")
   followUser(@Param() param): string {
     return `following user ${param.userid}`;
   }
 
-  @Delete('/:userid/follow')
+  @Delete("/:userid/follow")
   unfollowUser(@Param() param): string {
     return `unfollowing user ${param.userid}`;
   }
 
-  @Get('/:userid/followers')
+  @Get("/:userid/followers")
   getFollowersOfUser(@Param() param): string {
     return `followers of user ${param.userid}`;
   }
 
-  @Get('/:userid/followees')
+  @Get("/:userid/followees")
   getFolloweesOfUser(@Param() param): string {
     return `followers of user ${param.userid}`;
   }
