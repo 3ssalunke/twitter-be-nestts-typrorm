@@ -2,7 +2,7 @@
 
 project built using Nestjs + PostgreSQL
 
-![NodeJS Workflow](https://github.com/github/docs/actions/workflows/nodejs.yml/badge.svg)
+![NodeJS Workflow](https://github.com/3ssalunke/twitter-be-nestts-typrorm/actions/workflows/<WORKFLOW_FILE>/badge.svg)
 
 ## Description
 
