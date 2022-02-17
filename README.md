@@ -2,6 +2,8 @@
 
 project built using Nestjs + PostgreSQL
 
+![NodeJS Workflow](https://github.com/github/docs/actions/workflows/nodejs.yml/badge.svg)
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
