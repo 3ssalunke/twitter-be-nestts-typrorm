@@ -1,5 +1,7 @@
 import { Controller, Get, Param } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("hashtags")
 @Controller("hashtags")
 export class HashtagsController {
   @Get("/")
@@ -8,7 +10,7 @@ export class HashtagsController {
   }
 
   @Get("/:tag/posts")
-  getPostsForHashtag(@Param() param): string {
-    return `all posts for hashtag ${param.tag}`;
+  getPostsForHashtag(@Param("tag") tag: string): string {
+    return `all posts for hashtag ${tag}`;
   }
 }
