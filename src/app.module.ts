@@ -5,6 +5,7 @@ import { UsersController } from "./users/users.controller";
 import { PostsController } from "./posts/posts.controller";
 import { HashtagsController } from "./hashtags/hashtags.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserEntity } from "./users/users.entity";
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       synchronize: true,
       logger: "advanced-console",
       logging: "all",
-      entities: [],
+      entities: [UserEntity],
     }),
   ],
   controllers: [
