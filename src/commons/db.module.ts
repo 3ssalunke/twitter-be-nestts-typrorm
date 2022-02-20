@@ -1,6 +1,8 @@
 import { Global, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { PostEntity } from "src/posts/post.entity";
+import { PasswordEntity } from "src/auth/passwords.entity";
+import { SessionEntity } from "src/auth/sessions.entity";
+import { PostEntity } from "src/posts/posts.entity";
 import { UserEntity } from "src/users/users.entity";
 
 @Global()
@@ -13,8 +15,9 @@ import { UserEntity } from "src/users/users.entity";
       database: "twitter_clone",
       synchronize: true,
       logger: "advanced-console",
+      // dropSchema: true,
       logging: "all",
-      entities: [UserEntity, PostEntity],
+      entities: [UserEntity, PostEntity, PasswordEntity, SessionEntity],
     }),
   ],
 })

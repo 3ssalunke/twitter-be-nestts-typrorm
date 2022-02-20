@@ -5,9 +5,10 @@ import { DbModule } from "./commons/db.module";
 import { UsersModule } from "./users/users.module";
 import { PostsModule } from "./posts/posts.module";
 import { HashtagsModule } from "./hashtags/hashtags.module";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [DbModule, UsersModule, PostsModule, HashtagsModule],
+  imports: [DbModule, UsersModule, PostsModule, HashtagsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

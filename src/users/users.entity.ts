@@ -1,5 +1,6 @@
 import { BaseEntity } from "../commons/base.entity";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
+import { PasswordEntity } from "../auth/passwords.entity";
 
 @Entity("users")
 export class UserEntity extends BaseEntity {
@@ -24,5 +25,9 @@ export class UserEntity extends BaseEntity {
   @Column("boolean", { default: false })
   verified: boolean;
 
-  userPassword: string;
+  @OneToOne(() => PasswordEntity, (password) => password.user, {
+    lazy: true,
+    cascade: true,
+  })
+  userPassword: PasswordEntity;
 }

@@ -5,12 +5,14 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { AuthService } from "src/auth/auth.service";
 import { UserEntity } from "./users.entity";
 import { UsersRepository } from "./users.repository";
 
 @Injectable()
 export class UsersService {
   constructor(
+    private authService: AuthService,
     @InjectRepository(UserEntity) private userRepo: UsersRepository
   ) {}
 
@@ -42,6 +44,8 @@ export class UsersService {
       throw new ConflictException("This username is already taken!");
 
     const newUser = await this.userRepo.save(user);
+    await this.authService.createPasswordForNewUser(newUser, password);
+
     return newUser;
   }
 
