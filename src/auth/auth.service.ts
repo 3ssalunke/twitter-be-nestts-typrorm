@@ -65,6 +65,14 @@ export class AuthService {
     return { result: "success" };
   }
 
+  async getUserFromSessionToken(token: string) {
+    const session = await this.sessionRepo.findOne({ id: token });
+    if (!session) throw new UnauthorizedException("Session not found");
+    const user = await session.user;
+    if (!user) throw new UnauthorizedException("User not found");
+    return user;
+  }
+
   private async passToHash(password: string): Promise<string> {
     return hash(password, AuthService.PASSWORD_SALT_ROUNDS);
   }
