@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
   UseGuards,
 } from "@nestjs/common";
 import {
@@ -55,18 +56,38 @@ export class PostsController {
     );
   }
 
-  @Delete("/:postid")
-  deletePost(@Param("postid") postid: string) {
-    return `deleting a post ${postid}`;
+  @ApiBearerAuth()
+  @UseGuards(RequiedAuthGaurd)
+  @Delete("/:postId")
+  async deletePost(
+    @User() author: UserEntity,
+    @Param("postId") postId: string
+  ) {
+    return {
+      id: postId,
+      deleted: await this.postsService.deletePost(author, postId),
+    };
   }
 
-  @Put("/:postid")
-  likePost(@Param("postid") postid: string) {
-    return `liked a post ${postid}`;
+  @ApiBearerAuth()
+  @UseGuards(RequiedAuthGaurd)
+  @Put("/:postid/like")
+  async likePost(@Param("postid") postid: string, @Req() req) {
+    const token = (req.headers.authorization as string).replace("Bearer ", "");
+    return {
+      postId: postid,
+      liked: await this.postsService.likePost(token, postid),
+    };
   }
 
-  @Delete("/:postid")
-  unlikePost(@Param("postid") postid: string) {
-    return `unliked a post ${postid}`;
+  @ApiBearerAuth()
+  @UseGuards(RequiedAuthGaurd)
+  @Delete("/:postid/like")
+  async unlikePost(@Param("postid") postid: string, @Req() req) {
+    const token = (req.headers.authorization as string).replace("Bearer ", "");
+    return {
+      postId: postid,
+      liked: await this.postsService.unlikePost(token, postid),
+    };
   }
 }

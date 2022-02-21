@@ -4,7 +4,6 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { AuthService } from "src/auth/auth.service";
 import { UserEntity } from "./users.entity";
 import { UsersRepository } from "./users.repository";
@@ -13,7 +12,7 @@ import { UsersRepository } from "./users.repository";
 export class UsersService {
   constructor(
     private authService: AuthService,
-    @InjectRepository(UserEntity) private userRepo: UsersRepository
+    private userRepo: UsersRepository
   ) {}
 
   async getUserByUsername(username: string): Promise<UserEntity> {

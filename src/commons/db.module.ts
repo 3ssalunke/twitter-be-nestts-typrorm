@@ -2,6 +2,7 @@ import { Global, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PasswordEntity } from "src/auth/passwords.entity";
 import { SessionEntity } from "src/auth/sessions.entity";
+import { LikeEntity } from "src/likes/likes.entity";
 import { PostEntity } from "src/posts/posts.entity";
 import { UserEntity } from "src/users/users.entity";
 
@@ -17,7 +18,13 @@ import { UserEntity } from "src/users/users.entity";
       logger: "advanced-console",
       // dropSchema: true,
       logging: "all",
-      entities: [UserEntity, PostEntity, PasswordEntity, SessionEntity],
+      entities: [
+        UserEntity,
+        PostEntity,
+        PasswordEntity,
+        SessionEntity,
+        LikeEntity,
+      ],
     }),
   ],
 })

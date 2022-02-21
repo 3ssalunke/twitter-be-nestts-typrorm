@@ -3,7 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { AuthService } from "src/auth/auth.service";
+import { LikesService } from "src/likes/likes.service";
 import { UserEntity } from "src/users/users.entity";
 import { PostEntity } from "./posts.entity";
 import { PostsRepositry } from "./posts.repository";
@@ -11,7 +12,8 @@ import { PostsRepositry } from "./posts.repository";
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(PostEntity)
+    private readonly authService: AuthService,
+    private readonly likesService: LikesService,
     private postsRepo: PostsRepositry
   ) {}
 
@@ -84,5 +86,34 @@ export class PostsService {
     }
     const savedPost = await this.postsRepo.save(newPost);
     return savedPost;
+  }
+
+  async deletePost(author: UserEntity, postId: string) {
+    const { affected } = await this.postsRepo.delete({ id: postId, author });
+    return affected === 1;
+  }
+
+  async likePost(token, postId) {
+    return this.likeUnlikeHelper(token, postId, "like");
+  }
+
+  async unlikePost(token, postId) {
+    return this.likeUnlikeHelper(token, postId, "unlike");
+  }
+
+  private async likeUnlikeHelper(
+    token: string,
+    postId: string,
+    type: "like" | "unlike"
+  ) {
+    const author = await this.authService.getUserFromSessionToken(token);
+    const post = await this.getPost(postId);
+    if (!post) {
+      throw new NotFoundException("Post not found");
+    }
+
+    return type === "like"
+      ? await this.likesService.likePost(post, author)
+      : await this.likesService.unlikePost(post.id, author.id);
   }
 }
